@@ -1,0 +1,55 @@
+---
+title: "PLSC497_Spring2021 Hw1"
+author: "Jingsheng Zhang"
+date: "2021.02.10"
+output: html_notebook
+---
+# Conceptual Questions: #
+
+**1.	What are latent variables?**
+
+  Latent variables are variables that could not be directly observed but are rather inferred from other variables that are observed. Usually, the latent variables were not measured directly in the research design but they are the ultimate goal of the project.
+
+**2.	What is stemming? How is it different from lemmatization?**
+
+  Stemming is a algorithm that word by cutting off the end or the beginning of the word and to take into account a list of common prefixes and suffixes which could be found in an inflected word.
+
+  Lemmatization is a algorithm that considering the morphological analysis of the words. It is necessary to have detailed dictionaries which the algorithm can look through to link the form back to its original.
+
+  The differences between stemming and lemmatization is that stemming have different algorithms that can be used and the purpose of them is to reduce the words to the root. The key to the lemmatization is linguistic. To extract the proper lemma during the algorithm, you need to look at the morphological analysis for every word, which requires a big dictionary to do so.
+
+**3.	What is a document term matrix? Why is it usually sparse?**
+
+  A document term matrix is a mathematical matrix which describe the frequency of terms that occur in the collection of documents. In the matrix, tows are corresponding to documents and columns correspond to terms. It is usually sparse as sparse matrix objects ca n be treated as though they were matrix to do the following steps.
+
+**4.	Explain the tf-idf statistic and the advantage if using it?**
+
+  Tf-idf is short for term frequency-inverse document frequency, which is a numerical statistic which is intended to reflect how important a word is to a document. There are several advantages using it: 1. It is easy to compute. 2. You have some basic metric to extract the most descriptive terms in a document. 3. You can easily compute the similarity between 2 documents using it.
+
+# Coding Tasks: #
+
+**1.Use the Quanteda R package and load in the corpus of presidential inaugural addresses, ‘data_corpus_inaugural’. Summarize the corpus.**
+```{r}
+install.packages("quanteda")
+require(quanteda)
+summary(corpus(data_corpus_inaugural, notes = "Created as a demo."))
+```
+**2.Using the docvars function, save the last name of the presidents in a vector.**
+```{r}
+Last_name <- docvars(data_corpus_inaugural, "President")
+Last_name
+```
+
+**3.Create a document term matrix (aka document feature matrix) to create a matrix of counts of the occurrences of each word in each document. Report the dimensions of this matrix.**
+```{r}
+mydfm <- dfm(data_corpus_inaugural, remove = stopwords("english"), remove_punct = T, stem = T)
+mydfm
+dim(mydfm)
+```
+The dimensions of this matrix is 58, 5410.
+
+
+
+
+
+
