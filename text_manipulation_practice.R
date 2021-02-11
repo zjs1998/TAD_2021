@@ -10,4 +10,6 @@ s1 <- 'This is the Chinese new year and it’s a nice time for family reunions'
 s3 <- substr(s1, 9,11)
 
 #3. Choose a letter that appears in your sentence. Use the gsub command to replace all instances of that letter with a period. 
+
 gsub('i', '-', s1)
+
