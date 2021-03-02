@@ -3,11 +3,15 @@ Formula for text-as-data research
 
 
 What question do you want to answer? This should be something you *actually* want to know, and it should end in a question mark.
-
+Are most of the users who spread bad information on TikTok new users?
 
 What source of text data will you use?
+TikTok data
 
 What are two possible answers to the question?
+Most of the users who spread bad information on TikTok are new users.
+Most of the users who spread bad information on TikTok are not new users.
 
 How will the results of the quantitative text analysis demonstrate which of those answers is correct?
+By analyst the bad information from comment in TikTok, find out the users of them whether or not new user.
 
