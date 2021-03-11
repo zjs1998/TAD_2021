@@ -23,3 +23,4 @@ textstat_lexdiv(dfm(dfm_txt, verbose = FALSE))
 #6. Calculate the Manhattan distance between the two sentences you've constructed (by hand!)
 
 #The Manhattan distance between the two sentences is 0.2085562.
+

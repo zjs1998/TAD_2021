@@ -1,0 +1,107 @@
+---
+title: "PLSC497_Spring2021 Hw2"
+author: "Jingsheng Zhang"
+date: "2021.03.10"
+output: html_notebook
+---
+
+# Question1 #
+
+Look at the inaugural addresses given by Ronald Reagan in 1981 and 1985.
+
+**(a)Calculate the TTR of each of these speeches and report your findings.**
+```{r}
+require(quanteda)
+inaugTexts <- texts(data_corpus_inaugural)
+data_reagan <- data_corpus_inaugural[c("1981-Reagan", "1985-Reagan")]
+dfm <- dfm(data_reagan, tolower = FALSE)
+textstat_lexdiv(dfm, measure = "TTR")
+```
+The TTR for 1981-Reagan speech is 0.367 and the TTR for 1985-Reagan is 0.354.
+
+**(b)Calculate the cosine similarity between the two documents with quanteda.**
+```{r}
+df <- texts(data_corpus_inaugural)
+toks <- tokens(data_corpus_inaugural)
+tokenz <- lengths(toks)
+typez <- ntype(df)
+ttr <- typez / tokenz
+plot(ttr)
+ttr
+```
+```{r}
+dfm_origin <- dfm(data_reagan, remove_punct = TRUE, tolower = FALSE)
+dfm_origin
+textstat_simil(dfm_origin, method = "cosine")
+```
+The cosine similarity between the two speech is 0.956, which means that there is not big difference between the two speech.
+
+# Question2 #
+
+**(a) stemming the words**
+
+stemming is the process of reducing inflected (or sometimes derived) words to their word stem, base or root form—generally a written word form. In this way, the text document will be translated to the origin word form.
+```{r}
+stem_dfm <- dfm(data_reagan, stem = TRUE, remove_punct = TRUE)
+textstat_lexdiv(stem_dfm, measure = "TTR")
+```
+```{r}
+textstat_simil(stem_dfm, method = "cosine")
+```
+By stemming the word, the TTR is lower than without stemming as the words are translated to the original form, and the cosine similarity is slightly higher than the original one as two different words in original one might be the same by stemming. 
+
+**(b) Removing stop words.**
+
+Removing the stop words means to remove the words which does not add much meaning to a sentence. After removing the stop words, the text will be closer to its true meaning.
+```{r}
+remove_dfm <- dfm(data_reagan, remove_punct = TRUE, remove = stopwords("english"))
+textstat_lexdiv(remove_dfm, measure = "TTR")
+```
+```{r}
+textstat_simil(remove_dfm, method = "cosine")
+```
+After removing the stop words, the TTR is much larger than not removing stop words which means there is a lot of stopwords in the two speeches, and the cosine similarity is much smaller than the original one because the original took all the stopwords in to count. By removing the stopwords, the cosine similarity is more closer to its true value.
+
+**(c) Converting all words to lowercase**
+
+By converting all the words to lowercase, there might be light difference comparing to the original one.
+```{r}
+lower_dfm <- dfm(data_reagan, remove_punct = TRUE, tolower = TRUE)
+textstat_lexdiv(lower_dfm, measure = "TTR")
+```
+
+```{r}
+textstat_simil(lower_dfm, method = "cosine")
+```
+The TTR after converting all the words to lowercase is smaller than the original one and the cosine similarity is 0.03 larger than the original one. It's reasonable as he or He will be the same after this method. 
+
+**(d) Does tf-idf weighting make sense here? Explain why or why not.**
+
+I don't think tf-idf weighting make sense here, there are only two speech documents here which means the sample is two small, this technique does not have its strength here.
+
+# Question3 #
+
+```{r}
+txt <- c(sent1 = "Trump Says He’s ‘Not Happy’ With Border Deal, but Doesn’t Say if He Will Sign It.",
+         sent2 = "Trump ‘not happy’ with border deal, weighing options for building wall.")
+corpus_txt<-corpus(txt)
+dfm_txt<-dfm(corpus_txt, remove_punc = TRUE)
+dfm_txt
+```
+By calculating the 0s and 1s above:
+
+The Euclidean distance is 3.8729.
+
+The Manhattan distance is 15.
+
+The cosine similarity is 0.4522.
+
+
+
+
+
+
+
+
+
+
